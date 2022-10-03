@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
-const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div`
+    max-width: 1120px;
+    width: calc(100% - 20px);
+    margin: auto;
+    background: ${props => props.theme["background"]};
     
-`
+    display: flex;
+    flex-direction: column;
+`;
