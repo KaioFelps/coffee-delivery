@@ -2,13 +2,13 @@ export const defaultTheme = {
     "white": "#fff",
     "black": "#000",
 
-    "yellow-300": "#C47F17",
+    "yellow-300": "#F1E9C9",
     "yellow-500": "#DBAC2C",
-    "yellow-700": "#F1E9C9",
+    "yellow-700": "#C47F17",
 
-    "purple-300": "#4B2995",
+    "purple-300": "#EBE5F9",
     "purple-500": "#8047F8",
-    "purple-700": "#EBE5F9",
+    "purple-700": "#4B2995",
 
     // bases
 
