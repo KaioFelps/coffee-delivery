@@ -33,4 +33,15 @@ input, a, button, strong {
     max-width: 1120px;
     margin: auto;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Baloo 2", sans-serif;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
 `

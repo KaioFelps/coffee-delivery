@@ -33,7 +33,7 @@ type RoundIconProps = {
 }
 
 type FlexItens = {
-    gap?: number;
+    gap?: string;
     align?: keyof typeof AlignItemsPattern;
     justify?: keyof typeof JustifyContentPattern;
     break?: boolean;
@@ -44,9 +44,9 @@ type FlexItens = {
 }
 
 type GridBase = {
-    gap?: number;
-    columnGap?: number;
-    rowGap?: number;
+    gap?: string;
+    columnGap?: string;
+    rowGap?: string;
     templateColumn?: [number, string];
     templateRow?: [number, string];
     templateArea?: string;
@@ -81,7 +81,7 @@ export const Row = styled.div<FlexItens>`
 
     align-items: ${props => !props.align ? null : AlignItemsPattern[props.align]};
     justify-content: ${props => !props.justify ? null : JustifyContentPattern[props.justify]};
-    gap: ${props => !props.gap ? null : props.gap + "px"};
+    gap: ${props => !props.gap ? null : props.gap};
 `
 
 export const Col = styled.div<FlexItens>`
@@ -95,7 +95,7 @@ export const Col = styled.div<FlexItens>`
 
     align-items: ${props => !props.align ? null : AlignItemsPattern[props.align]};
     justify-content: ${props => !props.justify ? null : JustifyContentPattern[props.justify]};
-    gap: ${props => !props.gap ? null : props.gap + "px"};
+    gap: ${props => !props.gap ? null : props.gap};
 
 
     & .titles h1{
@@ -133,9 +133,9 @@ export const Grid = styled.div<GridBase>`
     height: ${props => !props.height ? null : props.height};
 
     display: grid;
-    gap: ${props => !props.gap ? null : props.gap + "px"};
-    column-gap: ${props => !props.columnGap ? null : props.columnGap + "px"};
-    row-gap: ${props => !props.rowGap ? null : props.rowGap + "px"};
+    gap: ${props => !props.gap ? null : props.gap};
+    column-gap: ${props => !props.columnGap ? null : props.columnGap};
+    row-gap: ${props => !props.rowGap ? null : props.rowGap};
     grid-template-columns: ${props => !props.templateColumn ? null : `repeat(${props.templateColumn[0]}, ${props.templateColumn[1]})` };
     grid-template-rows: ${props => !props.templateRow ? null : `repeat(${props.templateRow[0]}, ${props.templateRow[1]})` };
     grid-template-areas: ${props => !props.templateArea ? null : props.templateArea};
@@ -154,9 +154,9 @@ export const Grid_2x2 = styled.div<GridBase>`
     grid-template-rows: max-content max-content;
     grid-template-columns: max-content max-content;
 
-    gap: ${props => !props.gap ? null : props.gap + "px"};
-    column-gap: ${props => !props.columnGap ? null : props.columnGap + "px"};
-    row-gap: ${props => !props.rowGap ? null : props.rowGap + "px"};
+    gap: ${props => !props.gap ? null : props.gap};
+    column-gap: ${props => !props.columnGap ? null : props.columnGap};
+    row-gap: ${props => !props.rowGap ? null : props.rowGap};
 `
 
 
@@ -237,3 +237,5 @@ export const HeaderColorBG = styled.div<BackgroundImage>`
     background: url(${props => props.Src});
     pointer-events: none;
 `
+
+export const MenuContainer = styled(Col)
