@@ -7,11 +7,16 @@ import {
     HeaderGrid,
     RoundIcon,
     Row,
-    HeaderColorBG
+    HeaderColorBG,
+    MenuContainer
 } from "./style";
 import Art from "../../assets/Coffee art.png"
 import CoffeeBackground from "../../assets/coffelist-background.svg"
 import { ShopCard } from "../../componentes/ShopCard";
+import { CoffeeType } from "../../componentes/ShopCard";
+
+const coffeesKeys = Object.keys(CoffeeType)
+type coffesKeys = keyof typeof CoffeeType
 
 export function Home() {
     return (
@@ -54,9 +59,11 @@ export function Home() {
 
             <Col className="wrapper" gap="3.375rem">
                 <h2>Nossos Cafés</h2>
-                <div>
-                    <ShopCard coffeeType="espresso" labels={["tradicional"]} />
-                </div>
+                <MenuContainer columnGap="32px" rowGap="40px">
+                    {coffeesKeys.map(key => {
+                        return <ShopCard coffeeType={key as coffesKeys} />
+                    })}
+                </MenuContainer>
             </Col>
         </MainContainer>
     )

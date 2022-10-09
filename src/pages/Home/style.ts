@@ -34,6 +34,8 @@ type RoundIconProps = {
 
 type FlexItens = {
     gap?: string;
+    columnGap?: string;
+    rowGap?: string;
     align?: keyof typeof AlignItemsPattern;
     justify?: keyof typeof JustifyContentPattern;
     break?: boolean;
@@ -69,6 +71,7 @@ export const MainContainer = styled.main`
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 100px;
 `;
 
 export const Row = styled.div<FlexItens>`
@@ -82,6 +85,8 @@ export const Row = styled.div<FlexItens>`
     align-items: ${props => !props.align ? null : AlignItemsPattern[props.align]};
     justify-content: ${props => !props.justify ? null : JustifyContentPattern[props.justify]};
     gap: ${props => !props.gap ? null : props.gap};
+    column-gap: ${props => !props.columnGap ? null : props.columnGap};
+    row-gap: ${props => !props.rowGap ? null : props.rowGap};
 `
 
 export const Col = styled.div<FlexItens>`
@@ -96,6 +101,8 @@ export const Col = styled.div<FlexItens>`
     align-items: ${props => !props.align ? null : AlignItemsPattern[props.align]};
     justify-content: ${props => !props.justify ? null : JustifyContentPattern[props.justify]};
     gap: ${props => !props.gap ? null : props.gap};
+    column-gap: ${props => !props.columnGap ? null : props.columnGap};
+    row-gap: ${props => !props.rowGap ? null : props.rowGap};
 
 
     & .titles h1{
@@ -238,4 +245,6 @@ export const HeaderColorBG = styled.div<BackgroundImage>`
     pointer-events: none;
 `
 
-export const MenuContainer = styled(Col)
+export const MenuContainer = styled(Row)`
+    flex-wrap: wrap;
+`

@@ -4,7 +4,7 @@ export const Card = styled.div`
     background: ${props => props.theme["base-card"]};
     border-radius: 6px 36px;
 
-    max-width: 256px;
+    flex: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
