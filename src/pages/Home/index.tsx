@@ -13,12 +13,13 @@ import {
 import Art from "../../assets/Coffee art.png"
 import CoffeeBackground from "../../assets/coffelist-background.svg"
 import { ShopCard } from "../../componentes/ShopCard";
-import { CoffeeType } from "../../componentes/ShopCard";
-
-const coffeesKeys = Object.keys(CoffeeType)
-type coffesKeys = keyof typeof CoffeeType
+import { useContext } from "react";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
+import type { CoffeePropsType } from "../../contexts/CoffeeContext";
 
 export function Home() {
+    const { CoffeesData } = useContext(CoffeeContext)
+    
     return (
         <MainContainer>
             <>
@@ -60,8 +61,17 @@ export function Home() {
             <Col className="wrapper" gap="3.375rem">
                 <h2>Nossos Cafés</h2>
                 <MenuContainer columnGap="32px" rowGap="40px">
-                    {coffeesKeys.map(key => {
-                        return <ShopCard coffeeType={key as coffesKeys} />
+                    {CoffeesData.map((coffee: CoffeePropsType) => {
+                        return (
+                            <ShopCard
+                                key={coffee.title}
+                                title={coffee.title}
+                                description={coffee.description}
+                                labels={coffee.labels}
+                                price={coffee.price}
+                                image={coffee.image}
+                            />
+                        )
                     })}
                 </MenuContainer>
             </Col>
