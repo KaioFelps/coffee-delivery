@@ -20,7 +20,7 @@ export function Header() {
                     <MapPin size={22} weight="fill"/>
                     Porto Alegre, RS
                 </Location>
-                <ShoppingBag>
+                <ShoppingBag to="/checkout">
                     <ShoppingCart size={20} weight="fill" />
                     <ShoppingBagAmount>{coffeesQuantity < 100 ? coffeesQuantity : "99+"}</ShoppingBagAmount>
                 </ShoppingBag>

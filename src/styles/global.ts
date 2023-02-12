@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -44,4 +44,10 @@ h3 { font-size: 1.25rem; }
 h4 { font-size: 1.125rem; }
 h5 { font-size: 1rem; }
 h6 { font-size: 0.875rem; }
+`
+
+export const Box = styled.div`
+    padding: 40px;
+    border-radius: 6px;
+    background: ${props => props.theme["base-card"]}
 `

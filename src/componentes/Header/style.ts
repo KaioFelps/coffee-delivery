@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 import styled from "styled-components"
 
 export const HeaderContainer = styled.header`
@@ -43,10 +44,21 @@ export const Location = styled.div`
     }
 `
 
-export const ShoppingBag = styled(Location).attrs({
-    as: "a"
-})`
+export const ShoppingBag = styled(NavLink)`
+    padding: 8px;
+    border-radius: 6px;
     background: ${props => props.theme["yellow-300"]};
+
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+
+    color: ${({theme}) => theme["purple-700"]};
+    font-size: 0.875rem;
+
+    cursor: default;
 
     svg {
         color: ${({theme}) => theme["yellow-700"]};
