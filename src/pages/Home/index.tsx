@@ -18,7 +18,7 @@ import { CoffeeContext } from "../../contexts/CoffeeContext";
 import type { CoffeePropsType } from "../../contexts/CoffeeContext";
 
 export function Home() {
-    const { CoffeesData } = useContext(CoffeeContext)
+    const { coffeesData } = useContext(CoffeeContext)
     
     return (
         <MainContainer>
@@ -61,7 +61,7 @@ export function Home() {
             <Col className="wrapper" gap="3.375rem">
                 <h2>Nossos Cafés</h2>
                 <MenuContainer columnGap="32px" rowGap="40px">
-                    {CoffeesData.map((coffee: CoffeePropsType) => {
+                    {coffeesData.map((coffee: CoffeePropsType) => {
                         return (
                             <ShopCard
                                 key={coffee.title}

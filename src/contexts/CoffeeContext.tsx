@@ -13,7 +13,7 @@ import Irlandes from "../assets/Type=Irlandês.png"
 import Latte from "../assets/Type=Latte.png"
 import Macchiato from "../assets/Type=Macchiato.png"
 import Mocaccino from "../assets/Type=Mochaccino.png"
-import { createContext, ReactNode } from "react"
+import { createContext, ReactNode, useState } from "react"
 
 export type CoffeePropsType = {
     image: string,
@@ -23,16 +23,29 @@ export type CoffeePropsType = {
     price: number,
 }
 
+export type CartCoffeePropsType = {
+    image: string,
+    title: string,
+    price: number,
+    quantity: number,
+}
+
 type CoffeesDataPropsType = CoffeePropsType[]
 
 type CoffeeContextPropsType = {
-    CoffeesData: CoffeesDataPropsType,
+    coffeesData: CoffeesDataPropsType;
+    coffeesList: CartCoffeePropsType[];
+    addCoffeeToCart: ({}: CartCoffeePropsType) => void;
+    removeCoffeeFromCart: (title: string) => void;
+    getTotalCoffeeQuantity: () => number;
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextPropsType)
 
 export function CoffeeContextProvider({ children }: {children :ReactNode}) {
-    const CoffeesData: CoffeesDataPropsType = [
+    const [ coffeesList, setCoffeesList ] = useState([] as CartCoffeePropsType[])
+
+    const coffeesData: CoffeesDataPropsType = [
         {
             image: Americano,
             title: "Expresso Americano",
@@ -133,8 +146,54 @@ export function CoffeeContextProvider({ children }: {children :ReactNode}) {
         }
     ]
 
-    const contextValue = {
-        CoffeesData,
+    const addCoffeeToCart = ({ image, price, quantity, title }: CartCoffeePropsType) => {
+        const currentCoffeeInCart = coffeesList.find(coffee => coffee.title === title)
+
+        if(!!currentCoffeeInCart) {
+            setCoffeesList(prevState => {
+                const newCoffeesList = prevState.map(coffee => {
+                    if(coffee.title !== title) return coffee
+
+                    return {
+                        image,
+                        price,
+                        quantity: coffee.quantity + quantity >= 12 ? 12 : coffee.quantity + quantity,
+                        title,
+                    }
+                })
+
+                return newCoffeesList
+            })
+            return;
+        }
+
+        setCoffeesList(prevState => [...prevState, { image, price, quantity, title }])
+    }
+
+    const removeCoffeeFromCart = (title: String) => {
+        const currentCoffeeInCart = coffeesList.find(coffee => coffee.title === title)
+
+        if(currentCoffeeInCart === undefined) return;
+
+        setCoffeesList(prevState => prevState.filter(coffee => coffee.title !== title))
+    }
+
+    const getTotalCoffeeQuantity = () => {
+        const coffeesTotalQuantity = coffeesList.reduce((acc: number, coffee: CartCoffeePropsType) => {
+            return acc + coffee.quantity
+        }, 0)
+
+        return coffeesTotalQuantity
+    }
+
+    /* ---------- */
+
+    const contextValue: CoffeeContextPropsType = {
+        coffeesData,
+        coffeesList,
+        addCoffeeToCart,
+        removeCoffeeFromCart,
+        getTotalCoffeeQuantity,
     }
 
     return (
