@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 export function ShopCard({ description, image, labels, price, title }: CoffeePropsType) {
-    const [ coffeeQuantity, setCoffeeQuantity ] = useState(1)
+    const [ coffeeQuantity, setCoffeeQuantity ] = useState(0)
     const { addCoffeeToCart, coffeesList } = useContext(CoffeeContext)
 
     function handleIncreaseCoffeeQuantity() {
@@ -26,6 +26,10 @@ export function ShopCard({ description, image, labels, price, title }: CoffeePro
 
     function handleAddToCart() {
         try {
+            if(coffeeQuantity < 1) {
+                throw new Error("Não há café a ser adicionado.")
+            }
+            
             addCoffeeToCart({
                 image,
                 price,
@@ -43,10 +47,11 @@ export function ShopCard({ description, image, labels, price, title }: CoffeePro
                 theme: "light",
                 type: "success"
             })
+            setCoffeeQuantity(0)
         }
-        catch(error) {
-            console.log(error)
-            toast("Algo deu errado =(", {
+        catch(erro) {
+            console.log(erro)
+            toast(`${erro}`, {
                 position: "bottom-right",
                 autoClose: 3000,
                 hideProgressBar: false,

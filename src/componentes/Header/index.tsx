@@ -3,6 +3,7 @@ import { Logo, Location, ShoppingBag, ShoppingBagAmount, Navbar, HeaderContainer
 import { MapPin, ShoppingCart } from "phosphor-react"
 import { useContext, useEffect, useState } from "react"
 import { CoffeeContext } from "../../contexts/CoffeeContext"
+import { NavLink } from "react-router-dom"
 
 export function Header() {
     const { getTotalCoffeeQuantity } = useContext(CoffeeContext)
@@ -14,7 +15,9 @@ export function Header() {
 
     return (
         <HeaderContainer className="wrapper">
-            <Logo src={LogoCoffee} alt="Copo de café descartável com um foguete dentro e um letreiro escrito Coffee Delivery ao lado" />
+            <NavLink to="/">
+                <Logo src={LogoCoffee} alt="Copo de café descartável com um foguete dentro e um letreiro escrito Coffee Delivery ao lado" />
+            </NavLink>
             <Navbar>
                 <Location>
                     <MapPin size={22} weight="fill"/>

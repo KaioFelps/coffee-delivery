@@ -28,7 +28,7 @@ export const FormWrapper = styled.div`
     gap: 32px;
 `
 
-export const FormHeader = styled.header`
+export const BoxHeader = styled.header`
     flex: 1;
     display: flex;
     gap: 8px;
@@ -70,12 +70,15 @@ export const FormContent = styled.form`
             
             padding: 12px;
             background: ${props => props.theme["base-input"]};
-
+            
             &::placeholder {
                 color: ${props => props.theme["base-label"]};
                 font-size: ${props => props.theme["font-size-14"]};
             }
-
+            
+            &:focus {
+                box-shadow: inset 0 0 0 2px ${props => props.theme["yellow-500"]};
+            }
         }
     }
     #complemento::after {
