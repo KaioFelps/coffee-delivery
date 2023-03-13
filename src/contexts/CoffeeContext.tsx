@@ -38,6 +38,7 @@ type CoffeeContextPropsType = {
     addCoffeeToCart: ({}: CartCoffeePropsType) => void;
     removeCoffeeFromCart: (title: string) => void;
     getTotalCoffeeQuantity: () => number;
+    setCoffeeQuantity: (title: string, quantity: number) => void;
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextPropsType)
@@ -170,6 +171,19 @@ export function CoffeeContextProvider({ children }: {children :ReactNode}) {
         setCoffeesList(prevState => [...prevState, { image, price, quantity, title }])
     }
 
+    const setCoffeeQuantity = (title: string, quantity: number) => {
+        const newCoffee = coffeesList.find(coffee => coffee.title === title)
+        newCoffee!.quantity = quantity
+
+        setCoffeesList(prevState => {
+            const newState = prevState.map(coffee => {
+                return coffee.title === title ? newCoffee : coffee
+            })
+
+            return newState as CartCoffeePropsType[]
+        })
+    }
+
     const removeCoffeeFromCart = (title: String) => {
         const currentCoffeeInCart = coffeesList.find(coffee => coffee.title === title)
 
@@ -194,6 +208,7 @@ export function CoffeeContextProvider({ children }: {children :ReactNode}) {
         addCoffeeToCart,
         removeCoffeeFromCart,
         getTotalCoffeeQuantity,
+        setCoffeeQuantity,
     }
 
     return (

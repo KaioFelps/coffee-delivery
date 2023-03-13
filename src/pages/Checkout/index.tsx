@@ -1,10 +1,48 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "phosphor-react";
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from "phosphor-react";
 import { Box } from "../../styles/global";
-import { FormContent, BoxHeader, FormWrapper, InputRow, MainContainer, Section } from "./style";
+import { FormContent, BoxHeader, FormWrapper, InputRow, MainContainer, Section, CoffeeCard, CoffeeInformationContainer, RemoveFromCartButton, CoffeeActionBar, InCartCoffeesList, CoffeeDivisor, SummaryContainer, ConfirmButton } from "./style";
 import { defaultTheme } from "../../styles/themes/default"
 import { PaymentMethodRadio, PaymentMethodsContainer } from "./radioStyles";
+import { useContext, useEffect, useState } from "react";
+import { CartCoffeePropsType, CoffeeContext, CoffeePropsType } from "../../contexts/CoffeeContext";
+import { Counter } from "../../componentes/ShopCard/style";
 
 export function Checkout() {
+    const { coffeesList, setCoffeeQuantity, removeCoffeeFromCart } = useContext(CoffeeContext)
+    
+    function handleIncreaseCoffeeQuantity(title: string, quantity: number) {
+        const newQuantity = quantity + 1 > 12 ? 12 : quantity + 1
+        
+        setCoffeeQuantity(title, newQuantity)
+    }
+    
+    function handleDecreaseCoffeeQuantity(title: string, quantity: number) {
+        if (quantity - 1 <= 0) {
+            removeCoffeeFromCart(title)
+            return;
+        }
+        
+        setCoffeeQuantity(title, quantity - 1)
+    }
+    
+    function getSumOfPrices() {
+        const totalPrice = coffeesList.reduce((acc, coffee) => {
+            return acc + (coffee.price * coffee.quantity)
+        }, 0)
+        
+        return totalPrice
+    }
+    
+    function formatPriceToBRL(price: number) {
+        return price.toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+        })
+    }
+    
+    const totalPrice = getSumOfPrices()
+    const deliveryTax = 3.50
+
     return (
         <MainContainer>
             <Section>
@@ -67,6 +105,64 @@ export function Checkout() {
                 <h2>Cafés selecionados</h2>
 
                 <Box>
+                    <InCartCoffeesList>
+                        {coffeesList.map(coffee => (
+                            <>
+                                <CoffeeCard>
+                                    <CoffeeInformationContainer>
+                                        <img src={coffee.image} alt={coffee.title} width={64} height={64} />
+                                        <div>
+                                            <p>{coffee.title}</p>
+                                            <CoffeeActionBar>
+                                                <Counter>
+                                                    <button type="button" onClick={() => handleDecreaseCoffeeQuantity(coffee.title, coffee.quantity)}><Minus size={14} weight="fill" /></button>
+                                                    <span>{coffee.quantity}</span>
+                                                    <button type="button" onClick={() => handleIncreaseCoffeeQuantity(coffee.title, coffee.quantity)}><Plus size={14} weight="fill" /></button>
+                                                </Counter>
+
+                                                <RemoveFromCartButton
+                                                    type="button"
+                                                    title="Remover café do carrinho"
+                                                    onClick={() => removeCoffeeFromCart(coffee.title)}
+                                                >
+                                                    <Trash size={16} weight="light" />
+                                                    remover
+                                                </RemoveFromCartButton>
+                                            </CoffeeActionBar>
+                                        </div>
+                                    </CoffeeInformationContainer>
+
+                                    <span>${coffee.price}</span>
+                                </CoffeeCard>
+
+                                <CoffeeDivisor />
+                            </>
+                        ))}
+                    </InCartCoffeesList>
+
+                    <SummaryContainer>
+                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                            <label>Total de itens</label>
+                            <span>{formatPriceToBRL(totalPrice)}</span>
+                        </div>
+
+                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                            <label>Entrega</label>
+                            <span>{formatPriceToBRL(deliveryTax)}</span>
+                        </div>
+
+                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                            <strong><label>Total de itens</label></strong>
+                            <strong><span>{formatPriceToBRL(totalPrice + deliveryTax)}</span></strong>
+                        </div>
+                    </SummaryContainer>
+
+                    <ConfirmButton
+                        type="button"
+                        title="Confirmar pedido"
+                    >
+                        Confirmar pedido
+                    </ConfirmButton>
                 </Box>
             </Section>
         </MainContainer>
