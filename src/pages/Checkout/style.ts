@@ -218,7 +218,7 @@ export const SummaryContainer = styled.section`
     }
 `
 
-export const ConfirmButton = styled.button`
+export const ConfirmButton = styled.a`
     border: 1px solid ${p => p.theme["yellow-700"]};
     width: 100%;
 
@@ -226,6 +226,7 @@ export const ConfirmButton = styled.button`
     border-radius: 6px;
     background: ${p => p.theme["yellow-500"]};
     color: ${p => p.theme["white"]};
+    text-decoration: none;
     text-transform: uppercase;
     font-size: ${p => p.theme["font-size-18"]};
     font-weight: bold;

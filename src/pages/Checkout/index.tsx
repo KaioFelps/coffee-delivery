@@ -3,13 +3,14 @@ import { Box } from "../../styles/global";
 import { FormContent, BoxHeader, FormWrapper, InputRow, MainContainer, Section, CoffeeCard, CoffeeInformationContainer, RemoveFromCartButton, CoffeeActionBar, InCartCoffeesList, CoffeeDivisor, SummaryContainer, ConfirmButton } from "./style";
 import { defaultTheme } from "../../styles/themes/default"
 import { PaymentMethodRadio, PaymentMethodsContainer } from "./radioStyles";
-import { useContext, useEffect, useState } from "react";
-import { CartCoffeePropsType, CoffeeContext, CoffeePropsType } from "../../contexts/CoffeeContext";
+import { useContext } from "react";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 import { Counter } from "../../componentes/ShopCard/style";
+import {Navigate} from "react-router-dom"
 
 export function Checkout() {
     const { coffeesList, setCoffeeQuantity, removeCoffeeFromCart } = useContext(CoffeeContext)
-    
+
     function handleIncreaseCoffeeQuantity(title: string, quantity: number) {
         const newQuantity = quantity + 1 > 12 ? 12 : quantity + 1
         
@@ -158,7 +159,7 @@ export function Checkout() {
                     </SummaryContainer>
 
                     <ConfirmButton
-                        type="button"
+                        href="/success"
                         title="Confirmar pedido"
                     >
                         Confirmar pedido
